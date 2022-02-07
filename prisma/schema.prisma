@@ -12,8 +12,12 @@ provider = "prisma-client-js"
 model User {
   id Int   @default(autoincrement()) @id
   email String @unique
-  name String?
+  firstName String?
+  lastName String?
+  password String?
+  username String
   posts Post[]
+
 }
 
 model Post {
