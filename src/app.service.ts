@@ -14,29 +14,34 @@ export class AppService {
   }
 
   //get one user by condition
-  async user(userCondition: Prisma.UserWhereUniqueInput): Promise<User | null> {
+  async user(
+    userWhereUniqueInput: Prisma.UserWhereUniqueInput,
+  ): Promise<User | null> {
     return this.prisma.user.findUnique({
-      where: userCondition,
+      where: userWhereUniqueInput,
     });
   }
 
   //get all user by condition or not
-  async users(params: {
-    skip?: number;
-    take?: number;
-    cursor?: any;
-    where?: any;
-    orderBy?: any;
-  }): Promise<User[]> {
-    const { skip, take, cursor, where, orderBy } = params;
-    return this.prisma.user.findMany({
-      skip,
-      take,
-      cursor,
-      where,
-      orderBy,
-    });
+  async users(): Promise<User[]> {
+    return this.prisma.user.findMany();
   }
+  // async users(params: {
+  //   skip?: number;
+  //   take?: number;
+  //   cursor?: any;
+  //   where?: any;
+  //   orderBy?: any;
+  // }): Promise<User[]> {
+  //   const { skip, take, cursor, where, orderBy } = params;
+  //   return this.prisma.user.findMany({
+  //     skip,
+  //     take,
+  //     cursor,
+  //     where,
+  //     orderBy,
+  //   });
+  // }
 
   //update user
   async update(params: { data?: any; where?: any }): Promise<User> {

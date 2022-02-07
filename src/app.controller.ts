@@ -14,8 +14,13 @@ export class AppController {
 
   //request get by id
   @Get('/:id')
-  async get(@Param('id') id: any): Promise<any> {
-    return this.userService.user({ id: id });
+  async get(@Param('id') id: string): Promise<any> {
+    return this.userService.user({ id: Number(id) });
+  }
+  //Get all users
+  @Get()
+  async getAll(): Promise<any> {
+    return this.userService.users();
   }
 
   //update user
