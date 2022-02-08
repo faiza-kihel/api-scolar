@@ -7,9 +7,16 @@ import { AuthService } from './auth.service';
 import { localStrategy } from './local.strategy';
 import { JwtStrategy } from './jwt.strategy';
 import { JwtAuthGuard } from './jwt.authguard';
+import { LocalAuthGuard } from './local.authguard';
 
 @Module({
-  providers: [AuthService, localStrategy, JwtStrategy, JwtAuthGuard],
+  providers: [
+    AuthService,
+    localStrategy,
+    JwtStrategy,
+    JwtAuthGuard,
+    LocalAuthGuard,
+  ],
   imports: [
     UserModule,
     PassportModule,
@@ -18,6 +25,6 @@ import { JwtAuthGuard } from './jwt.authguard';
       signOptions: { expiresIn: '60s' },
     }),
   ],
-  exports: [AuthService, JwtAuthGuard],
+  exports: [AuthService, JwtAuthGuard, LocalAuthGuard],
 })
 export class AuthModule {}
