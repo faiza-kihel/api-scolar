@@ -4,5 +4,5 @@ export class UserModel {
   lastName?: string;
   email?: any;
   password?: string;
-  username?: any;
+  username: any;
 }
