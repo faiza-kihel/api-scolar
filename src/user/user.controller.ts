@@ -1,18 +1,10 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Logger,
-  Param,
-  Post,
-  Put,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { UserAuthService } from 'src/auth/user-auth/user-auth.service';
 import { UserModel } from 'src/Interfaces/user';
-import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
-  constructor(private userService: UserService) {}
+    constructor(private userService: UserAuthService) {}
 
   //request post
   @Post()
@@ -21,6 +13,7 @@ export class UserController {
   }
 
   //request get by id
+  @UseGuards()
   @Get('/:id')
   async get(@Param('id') id: string): Promise<any> {
     return this.userService.user({ id: Number(id) });
