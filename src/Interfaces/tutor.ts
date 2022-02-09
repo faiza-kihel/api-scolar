@@ -1,6 +1,7 @@
-import { AttachmentModel } from "./attachment";
+import { AttachmentModel } from './attachment';
+import { StudentModel } from './student';
 
-export class UserModel {
+export class TutorModel {
   id?: number;
   firstName?: string;
   lastName?: string;
@@ -11,6 +12,7 @@ export class UserModel {
   updatedAt?: any;
   roleId?: any;
   attachments?: AttachmentModel[];
+  students? : StudentModel[];
   phoneNumber?: number;
   adresss?: any;
 }
