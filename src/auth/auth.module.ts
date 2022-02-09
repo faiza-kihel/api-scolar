@@ -7,7 +7,7 @@ import { localStrategy } from './local.strategy';
 import { JwtStrategy } from './jwt.strategy';
 import { JwtAuthGuard } from './jwt.authguard';
 import { LocalAuthGuard } from './local.authguard';
-import { UserAuthService } from './user-auth/user-auth.service';
+import { PrismaService } from 'prisma/prismaServices/prisma/prisma.service';
 
 @Module({
   providers: [
@@ -16,7 +16,7 @@ import { UserAuthService } from './user-auth/user-auth.service';
     JwtStrategy,
     JwtAuthGuard,
     LocalAuthGuard,
-    UserAuthService,
+    PrismaService,
   ],
   imports: [
     PassportModule,
@@ -30,7 +30,8 @@ import { UserAuthService } from './user-auth/user-auth.service';
     JwtAuthGuard,
     LocalAuthGuard,
     localStrategy,
-    UserAuthService,
+    PrismaService,
+    JwtStrategy,
   ],
 })
 export class AuthModule {}

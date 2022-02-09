@@ -1,10 +1,11 @@
 import { Body, Controller, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
-import { UserAuthService } from 'src/auth/user-auth/user-auth.service';
+import { AuthService } from 'src/auth/auth.service';
+
 import { UserModel } from 'src/Interfaces/user';
 
 @Controller('user')
 export class UserController {
-    constructor(private userService: UserAuthService) {}
+    constructor(private userService: AuthService) {}
 
   //request post
   @Post()
