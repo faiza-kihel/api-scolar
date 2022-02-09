@@ -2,13 +2,15 @@ import { Injectable, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Prisma, User } from '@prisma/client';
 import { PrismaService } from 'prisma/prismaServices/prisma/prisma.service';
-
+import { Encryption } from './entryption';
 
 @Injectable()
 export class AuthService {
+  
   constructor(
     private jwtService: JwtService,
     private prisma: PrismaService,
+    private encrypt: Encryption,
   ) {}
 
   async validateUser(username: string, pass: string): Promise<any> {
@@ -29,6 +31,8 @@ export class AuthService {
   //----------------------------------- User Auth ---------------------------------------//
   //create user
   async create(data: any): Promise<User> {
+    data.password = await this.encrypt.Encrypt(data.password);
+    console.log('new data', data);
     return this.prisma.user.create({
       data,
     });
@@ -47,6 +51,7 @@ export class AuthService {
   async users(): Promise<User[]> {
     return this.prisma.user.findMany();
   }
+
   //update user
   async update(params: { data?: any; where?: any }): Promise<User> {
     const { data, where } = params;
