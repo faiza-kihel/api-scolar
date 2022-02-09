@@ -6,7 +6,6 @@ import { Encryption } from './entryption';
 
 @Injectable()
 export class AuthService {
-  
   constructor(
     private jwtService: JwtService,
     private prisma: PrismaService,
@@ -31,7 +30,8 @@ export class AuthService {
   //----------------------------------- User Auth ---------------------------------------//
   //create user
   async create(data: any): Promise<User> {
-    data.password = await this.encrypt.Encrypt(data.password);
+    const pass = await this.encrypt.Encrypt(data.password);
+    data.password = pass;
     console.log('new data', data);
     return this.prisma.user.create({
       data,

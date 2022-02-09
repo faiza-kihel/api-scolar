@@ -3,10 +3,9 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class Encryption {
-    
   //crypt password
   async Encrypt(password: any): Promise<any> {
-    const saltOrRound = 20;
+    const saltOrRound = 15;
     const hash = await bcrypt.hash(password, saltOrRound);
     console.log('hash', hash);
     return hash;

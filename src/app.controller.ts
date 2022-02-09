@@ -5,12 +5,12 @@ import { UserModel } from './Interfaces/user';
 
 @Controller()
 export class AppController {
-
   constructor(private authLogin: AuthService) {}
-  
+
   @UseGuards(localStrategy)
   @Post('auth/login')
   async login(@Body() req: UserModel[]): Promise<any> {
+    console.log('hello');
     return this.authLogin.login(req);
   }
 }
