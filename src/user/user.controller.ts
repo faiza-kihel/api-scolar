@@ -10,15 +10,16 @@ import {
 import { AuthService } from 'src/auth/auth.service';
 
 import { UserModel } from 'src/Interfaces/user';
+import { UserService } from './user.service';
 
 @Controller('/user')
 export class UserController {
-  constructor(private userService: AuthService) {}
+  constructor(private userService: UserService, private authService: AuthService) {}
 
-  //request post
+  //request post login
   @Post()
   async signup(@Body() userData: UserModel[]): Promise<any> {
-    return this.userService.create(userData);
+    return this.authService.create(userData);
   }
 
   //request get by id
