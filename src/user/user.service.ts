@@ -59,8 +59,9 @@ export class UserService {
         ],
       },
     });
+    console.log('a', a);
 
-    return;
+    return a;
   }
 
   //update user
