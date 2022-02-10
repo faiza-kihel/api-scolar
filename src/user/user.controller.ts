@@ -38,7 +38,7 @@ export class UserController {
     @Query('index') index: number = 0,
     @Query('size') size: number = 10,
     @Query('order') order: any = 'desc',
-    @Query('status') status: any,
+    @Query('status') status: any = 'active',
     @Query('date') date: any = null,
     @Query('startAt') startAt: any = null,
     @Query('endAt') endAt: any = null,
@@ -52,7 +52,7 @@ export class UserController {
       date,
       startAt,
       endAt,
-      String(null),
+      String('null'),
     );
   }
 
