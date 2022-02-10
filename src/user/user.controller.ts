@@ -5,6 +5,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from 'src/auth/auth.service';
@@ -12,9 +13,12 @@ import { AuthService } from 'src/auth/auth.service';
 import { UserModel } from 'src/Interfaces/user';
 import { UserService } from './user.service';
 
-@Controller('/user')
+@Controller('user')
 export class UserController {
-  constructor(private userService: UserService, private authService: AuthService) {}
+  constructor(
+    private userService: UserService,
+    private authService: AuthService,
+  ) {}
 
   //request post login
   @Post()
@@ -30,8 +34,26 @@ export class UserController {
 
   //Get all users
   @Get()
-  async getAll(): Promise<any> {
-    return this.userService.users();
+  async getAll(
+    @Query('index') index: number = 0,
+    @Query('size') size: number = 10,
+    @Query('order') order: any = 'desc',
+    @Query('status') status: any,
+    @Query('date') date: any = null,
+    @Query('startAt') startAt: any = null,
+    @Query('endAt') endAt: any = null,
+    @Query('search') search: any,
+  ): Promise<any> {
+    return this.userService.users(
+      Number(index),
+      Number(size),
+      order,
+      String(status),
+      date,
+      startAt,
+      endAt,
+      String(null),
+    );
   }
 
   //update user

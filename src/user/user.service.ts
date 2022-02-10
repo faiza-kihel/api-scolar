@@ -4,7 +4,6 @@ import { PrismaService } from 'prisma/prismaServices/prisma/prisma.service';
 
 @Injectable()
 export class UserService {
-    
   constructor(private prisma: PrismaService) {}
 
   //get one user by condition
@@ -17,8 +16,48 @@ export class UserService {
   }
 
   //get all user by condition or not
-  async users(): Promise<User[]> {
-    return this.prisma.user.findMany();
+  async users(
+    index: number = 0,
+    size: number = 10,
+    order: any = 'desc',
+    status: string = 'active',
+    date?: any | null,
+    startAt?: any | null,
+    endAt?: any | null,
+    search?: string | null,
+  ): Promise<User[]> {
+    return this.prisma.user.findMany({
+      skip: index,
+      take: size,
+
+      //orderBy: order,
+      where: {
+        AND: [
+          { status: status },
+          {
+            firstName: {
+              contains: search,
+            },
+          },
+          {
+            lastName: {
+              contains: search,
+            },
+          },
+          {
+            email: { contains: search },
+          },
+          { username: { contains: search } },
+          { createdAt: { equals: new Date(date) } },
+          {
+            createdAt: {
+              gte: new Date(startAt),
+              lt: new Date(endAt),
+            },
+          },
+        ],
+      },
+    });
   }
 
   //update user
